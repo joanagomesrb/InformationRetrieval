@@ -15,12 +15,12 @@ class CorpusReader:
     def corpusReader():
 
         # to choose file to read and open it
-        filename_input = "OneDrive_1_9-26-2019/2004_TREC_ASCII_MEDLINE_1"
-        #filename_input = Interact.openFile()
+        #filename_input = "OneDrive_1_9-26-2019/2004_TREC_ASCII_MEDLINE_1"
+        filename_input = Interact.openFile()
         fi = open(filename_input, 'r', encoding="latin-1")
 
-        filename_input = "OneDrive_1_9-26-2019/2004_TREC_ASCII_MEDLINE_2"
-        fi2 = open(filename_input, 'r', encoding="latin-1")
+        #filename_input = "OneDrive_1_9-26-2019/2004_TREC_ASCII_MEDLINE_2"
+        #fi2 = open(filename_input, 'r', encoding="latin-1")
         
         #open file to write the results; not needed
         filename_output = "output.txt"
@@ -61,27 +61,27 @@ class CorpusReader:
                 doc += line
 
         #read 2nd file
-        print("Writing in file\n")
-        for line in fi2:
-            if(line.strip() == ""):
-                #here ends a document
-                #call IdentifierReader on read lines and find Identitifiers (PMID and TI)
-                docdict = IdentifierReader.identReader(doc)
-                #basic Tokenizer
-                tokenizer_dict = token.tokenizer(docdict)
-                #improved Tokenizer with Porter stemmer
-                tok_dict = ImprovedTokenizer.improvedTokenizer(tokenizer_dict)
-                indexed_dict = idx.indexer(tok_dict)
-                var = False
-                doc = ""
-                continue
-            if(line[4] == '-'):
-                key = line.split("-", 1)
-                if(key[0] == "PMID"):
-                    var = True
-                    #here starts a document
-            if(var):
-                doc += line
+        # for line in fi2:
+        #     if(line.strip() == ""):
+        #         #here ends a document
+        #         #call IdentifierReader on read lines and find Identitifiers (PMID and TI)
+        #         docdict = IdentifierReader.identReader(doc)
+        #         #basic Tokenizer
+        #         tokenizer_dict = token.tokenizer(docdict)
+        #         #improved Tokenizer with Porter stemmer
+        #         tok_dict = ImprovedTokenizer.improvedTokenizer(tokenizer_dict)
+        #         #indexing
+        #         indexed_dict = idx.indexer(tok_dict)
+        #         var = False
+        #         doc = ""
+        #         continue
+        #     if(line[4] == '-'):
+        #         key = line.split("-", 1)
+        #         if(key[0] == "PMID"):
+        #             var = True
+        #             #here starts a document
+        #     if(var):
+        #         doc += line
         
 
         #write results to output.txt file
@@ -118,9 +118,9 @@ class CorpusReader:
         
         print("RESULTS")
         print("Time to run: ", end - start)
-        print("Vocabulary size: " + len(indexed_dict))
-        print("Doc frequency 1: " + doc_freq_1)
-        print("Highest doc frequency: " + high_doc_freq)
+        print("Vocabulary size: ", len(indexed_dict))
+        print("Doc frequency 1: ", doc_freq_1)
+        print("Highest doc frequency: ", high_doc_freq)
 
 
 
